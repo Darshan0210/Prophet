@@ -20,7 +20,7 @@ spec:
           image: sohamsal2026/fourier-historical:v4
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 8090
               name: metrics
           env:
             - name: FLT_PROM_URL

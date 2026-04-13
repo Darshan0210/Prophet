@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fourier-anomaly-detector
+  namespace: sre
+  labels:
+    app: fourier-anomaly-detector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fourier-anomaly-detector
+  template:
+    metadata:
+      labels:
+        app: fourier-anomaly-detector
+    spec:
+      containers:
+        - name: prometheus-anomaly-detector
+          image: sohamsal2026/fourier-historical:v4
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: metrics
+          env:
+            - name: FLT_PROM_URL
+              # Update this to exactly match your Prometheus cluster URL address
+              value: "https://prometheus.sitopflab03.otv-staging.com" 
+            - name: FLT_PROM_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: prometheus-auth
+                  key: token
+            - name: FLT_DATA_START_TIME
+              value: "2026-02-16T12:00:00Z"
+            - name: FLT_DATA_END_TIME
+              value: "2026-03-04T05:21:16Z"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/fourier
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: fourier-endpoints-config

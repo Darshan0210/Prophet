@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: rmqdetector
-          image: your-dockerhub-username/rmqdetector:v1
+          image: naginters/rmqdetector:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 8090

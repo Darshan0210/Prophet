@@ -1,14 +1,14 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: fourier-anomaly-detector-monitor
+  name: rmqdetector-monitor
   namespace: sre
   labels:
-    app: fourier-anomaly-detector
+    app: rmqdetector
 spec:
   selector:
     matchLabels:
-      app: fourier-anomaly-detector
+      app: rmqdetector
   endpoints:
     - port: metrics
       path: /metrics

@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fourier-anomaly-detector
+  name: rmqdetector
   namespace: sre
   labels:
-    app: fourier-anomaly-detector
+    app: rmqdetector
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fourier-anomaly-detector
+      app: rmqdetector
   template:
     metadata:
       labels:
-        app: fourier-anomaly-detector
+        app: rmqdetector
     spec:
       containers:
-        - name: prometheus-anomaly-detector
-          image: sohamsal2026/fourier-historical:v4
+        - name: rmqdetector
+          image: your-dockerhub-username/rmqdetector:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 8090

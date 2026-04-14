@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: rmqdetector
-          image: naginters/rmqdetector:v1
+          image: naginterns/rmqdetector:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 8090
